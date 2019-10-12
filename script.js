@@ -8,24 +8,29 @@ window.addEventListener("load", function(){
             for(let k=0; k<json.length; k++){
                 hoursInSpaceList.push(Number(json[k].hoursInSpace));
             }
-            hoursInSpaceList.sort(function(a, b){hoursInSpaceListSorted.push( a-b)});
-            console.log(hoursInSpaceListSorted);
+            hoursInSpaceList.sort();
+            console.log(hoursInSpaceList);
             for(let i=0; i<json.length; i++){
-                let emptyList = [];
-                emptyList.push(json[i].skills);
-                container.innerHTML += `
-                    <div class="astronaut">
-                        <div class="bio">
-                            <h3>${json[i].firstName} ${json[i].lastName}</h3>
-                            <ul>
-                                <li>Hours in space: ${json[i].hoursInSpace}</li>
-                                <li>Active: ${json[i].active}</li>
-                                <li>Skills: ${emptyList[0].join(', ')}
-                            </ul>
-                        </div>
-                        <img class="avatar" src="${json[i].picture}">
-                    </div>
-                `
+                for(let j=0; j<json.length; j++){
+                    console.log(typeof json[j].hoursInSpace);
+                    if(json[j].hoursInSpace === hoursInSpaceList[i]){
+                        let emptyList = [];
+                        emptyList.push(json[j].skills);
+                        container.innerHTML += `
+                            <div class="astronaut">
+                                <div class="bio">
+                                    <h3>${json[j].firstName} ${json[j].lastName}</h3>
+                                    <ul>
+                                        <li>Hours in space: ${json[j].hoursInSpace}</li>
+                                        <li>Active: ${json[j].active}</li>
+                                        <li>Skills: ${emptyList[0].join(', ')}
+                                    </ul>
+                                </div>
+                                <img class="avatar" src="${json[j].picture}">
+                            </div>
+                        `
+                    }
+                }
             }
         });
     });
